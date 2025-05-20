@@ -1,4 +1,28 @@
+using Microsoft.Extensions.Options;
+using ShoppingNightMongo.Services.CategoryServices;
+using ShoppingNightMongo.Services.CustomerServices;
+using ShoppingNightMongo.Services.ProductServices;
+using ShoppingNightMongo.Settings;
+using System.Reflection;
+
 var builder = WebApplication.CreateBuilder(args);
+
+// Her Http isteði için bir tane üret, paylaþ.
+builder.Services.AddScoped<ICategoryService, CategoryService>();
+builder.Services.AddScoped<ICustomerService, CustomerService>();
+builder.Services.AddScoped<IProductService, ProductService>();
+
+// Tüm profile sýnýflarýný tara, bul ve otomatik olarak kaydet.
+builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+// Database konfigürasyon ayarlarýný yapýyoruz.
+builder.Services.Configure<DatabaseSettings>(builder.Configuration.GetSection("DatabaseSettingsKey"));
+
+//
+builder.Services.AddScoped<IDatabaseSettings>(sp =>
+{
+    return sp.GetRequiredService<IOptions<DatabaseSettings>>().Value;
+});
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

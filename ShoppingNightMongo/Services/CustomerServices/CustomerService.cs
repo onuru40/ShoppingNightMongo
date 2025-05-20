@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using MongoDB.Driver;
-using ShoppingNightMongo.Dtos.CategoryDtos;
 using ShoppingNightMongo.Dtos.CustomerDtos;
 using ShoppingNightMongo.Entities;
 using ShoppingNightMongo.Settings;
@@ -29,14 +28,16 @@ namespace ShoppingNightMongo.Services.CustomerServices
             await _customerCollection.DeleteOneAsync(customerId);
         }
 
-        public Task<List<ResultCustomerDto>> GetAllCustomerAsync()
+        public async Task<List<ResultCustomerDto>> GetAllCustomerAsync()
         {
-            throw new NotImplementedException();
+            var values = await _customerCollection.Find(x => true).ToListAsync(); // true ile herhangi bir şart olmadan bütün verileri getir.
+            return _mapper.Map<List<ResultCustomerDto>>(values);
         }
 
-        public Task<GetCustomerByIdDto> GetCustomerByIdAsync(string customerId)
+        public async Task<GetCustomerByIdDto> GetCustomerByIdAsync(string customerId)
         {
-            throw new NotImplementedException();
+            var value = await _customerCollection.Find(x => x.CustomerId == customerId).FirstOrDefaultAsync(); // Hiç veri gelmeme durumunda default değer olarak "null" dönecektir.
+            return _mapper.Map<GetCustomerByIdDto>(value);
         }
 
         public async Task UpdateCustomerAsync(UpdateCustomerDto updateCustomerDto)
