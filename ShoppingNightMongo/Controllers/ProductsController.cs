@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using ShoppingNightMongo.Dtos.ProductDtos;
+using ShoppingNightMongo.Services.CategoryServices;
 using ShoppingNightMongo.Services.ProductServices;
 
 namespace ShoppingNightMongo.Controllers
@@ -7,9 +9,11 @@ namespace ShoppingNightMongo.Controllers
     public class ProductsController : Controller
     {
         private readonly IProductService _productService;
-        public ProductsController(IProductService productService)
+        private readonly ICategoryService _categoryService;
+        public ProductsController(IProductService productService, ICategoryService categoryService)
         {
             _productService = productService;
+            _categoryService = categoryService;
         }
 
         public async Task<IActionResult> ProductList()
@@ -19,8 +23,15 @@ namespace ShoppingNightMongo.Controllers
         }
 
         [HttpGet]
-        public IActionResult CreateProduct()
+        public async Task<IActionResult> CreateProduct()
         {
+            var categories = await _categoryService.GetAllCategoryAsync();
+            ViewBag.v = categories.Select(c => new SelectListItem
+            {
+                Text = c.CategoryName,
+                Value = c.CategoryId
+            }).ToList();
+
             return View();
         }
 

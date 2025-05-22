@@ -46,7 +46,7 @@ namespace ShoppingNightMongo.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateCategory(UpdateCategoryDto updateCategoryDto)
+        public async Task<IActionResult> UpdateCategory(UpdateCategoryDto updateCategoryDto)
         {
             await _categoryService.UpdateCategoryAsync(updateCategoryDto);
             return RedirectToAction("CategoryList");

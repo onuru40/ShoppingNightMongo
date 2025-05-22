@@ -25,7 +25,7 @@ namespace ShoppingNightMongo.Services.CategoryServices
 
         public async Task DeleteCategoryAsync(string id)
         {
-            await _categoryCollection.DeleteOneAsync(id);
+            await _categoryCollection.DeleteOneAsync(x => x.CategoryId == id);
         }
 
         public async Task<List<ResultCategoryDto>> GetAllCategoryAsync()
