@@ -2,6 +2,8 @@
 using ShoppingNightMongo.Dtos.CategoryDtos;
 using ShoppingNightMongo.Dtos.CustomerDtos;
 using ShoppingNightMongo.Dtos.ProductDtos;
+using ShoppingNightMongo.Dtos.ProductImageDtos;
+using ShoppingNightMongo.Dtos.SliderDtos;
 using ShoppingNightMongo.Entities;
 
 namespace ShoppingNightMongo.Mapping
@@ -24,6 +26,16 @@ namespace ShoppingNightMongo.Mapping
             CreateMap<Product, ResultProductDto>().ReverseMap();
             CreateMap<Product, UpdateProductDto>().ReverseMap();
             CreateMap<Product, GetProductByIdDto>().ReverseMap();
+
+            CreateMap<Slider, CreateSliderDto>().ReverseMap();
+            CreateMap<Slider, UpdateSliderDto>().ReverseMap();
+            CreateMap<Slider, ResultSliderDto>().ReverseMap();
+            CreateMap<Slider, GetSliderDto>().ReverseMap();
+
+            CreateMap<ProductImage, CreateProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, UpdateProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, ResultProductImageDto>().ReverseMap();
+            CreateMap<ProductImage, GetProductImageDto>().ReverseMap();
         }
     }
 }
