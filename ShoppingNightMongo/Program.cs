@@ -1,7 +1,9 @@
 using Microsoft.Extensions.Options;
 using ShoppingNightMongo.Services.CategoryServices;
 using ShoppingNightMongo.Services.CustomerServices;
+using ShoppingNightMongo.Services.ProductImageServices;
 using ShoppingNightMongo.Services.ProductServices;
+using ShoppingNightMongo.Services.SliderServices;
 using ShoppingNightMongo.Settings;
 using System.Reflection;
 
@@ -11,6 +13,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<ICustomerService, CustomerService>();
 builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<IProductImageService, ProductImageService>();
+builder.Services.AddScoped<ISliderService, SliderService>();
 
 // Tüm profile sýnýflarýný tara, bul ve otomatik olarak kaydet.
 builder.Services.AddAutoMapper(Assembly.GetExecutingAssembly());
